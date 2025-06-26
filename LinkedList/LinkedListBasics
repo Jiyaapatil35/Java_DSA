@@ -1,0 +1,304 @@
+public class LinkedListBasics 
+{
+    public static class Node 
+    {
+        int data;
+        Node next;
+
+        public Node(int data) 
+        {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public static Node head;
+    public static Node tail;
+    public static int size = 0;
+
+    // Add first - O(1)
+    public void addFirst(int data) 
+    {
+        // Step 1 - Create newNode
+        Node newNode = new Node(data);
+        size++;
+        if (head == null) 
+        {
+            head = tail = newNode;
+            return;
+        }
+        // Step 2 - newNode.next -> head
+        newNode.next = head;
+        // Step 3 - head will be newNode
+        head = newNode;
+    }
+
+    // Add in the middle
+    public void addMiddle(int idx, int data) 
+    {
+        if (idx == 0) 
+        {
+            addFirst(data);
+            return;
+        }
+        Node newNode = new Node(data);
+        size++;
+        Node temp = head;
+        int i = 0;
+        while (i < idx - 1) 
+        {
+            temp = temp.next;
+            i++;
+        }
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    // Add last - O(1)
+    public void addLast(int data) 
+    {
+        // Step 1 - Create newNode
+        Node newNode = new Node(data);
+        size++;
+        if (head == null) 
+        {
+            head = tail = newNode;
+            return;
+        }
+        // Step 2 - Tail.next -> newNode
+        tail.next = newNode;
+        // Step 3 - tail will be newNode
+        tail = newNode;
+    }
+
+    // Remove first
+    public int removeFirst() 
+    {
+        if (size == 0) 
+        {
+            System.err.println("LinkedList is empty");
+            return Integer.MIN_VALUE;
+        } 
+        else if (size == 1) 
+        {
+            int value = head.data;
+            head = tail = null;
+            size = 0;
+            return value;
+        }
+        int value = head.data;
+        head = head.next;
+        size--;
+        return value;
+    }
+
+    // Remove last
+    public int removeLast() 
+    {
+        if (size == 0) 
+        {
+            System.err.println("LinkedList is empty");
+            return Integer.MIN_VALUE;
+        } else if (size == 1) 
+        {
+            int value = head.data;
+            head = tail = null;
+            size = 0;
+            return value;
+        }
+        Node temp = head;
+        while (temp.next != tail) 
+        {
+            temp = temp.next;
+        }
+        // for (int i = 0; i < size - 2; i++) {
+        // temp = temp.next;
+        // }
+        // int value = temp.next.data;
+        int value = tail.data;
+        temp.next = null;
+        tail = temp;
+        size--;
+        return value;
+    }
+
+    // Remove Nth node from last - O(n)
+    public void removeNth(int n) 
+    {
+        // Clculate size
+        int sz = 0;
+        Node temp = head;
+        while (temp != null) 
+        {
+            temp = temp.next;
+            sz++;
+        }
+        if (n == sz) 
+        {
+            head = head.next; // removeFirst
+            return;
+        }
+        // sz - n
+        int i = 1;
+        int idxToFind = sz - n;
+        Node prev = head;
+        while (i < idxToFind) {
+            prev = prev.next;
+            i++;
+        }
+        prev.next = prev.next.next;
+        return;
+    }
+
+    // Iterrative search - O(n)
+    public int search(int key) 
+    {
+        Node temp = head;
+        int pos = 0;
+        while (temp != null) 
+        {
+            if (key == temp.data) 
+            {
+                System.out.println(pos);
+                return 0;
+            }
+            pos++;
+            temp = temp.next;
+        }
+        System.out.println("Key not found");
+        return -1;
+    }
+
+    // Recurssive search - TC:= O(n) & SC:= O(n)
+    public int helper(Node head, int key) 
+    {
+        if (head == null)
+        {
+            return -1;
+        }
+        if (head.data == key) 
+        {
+            return 0;
+        }
+        int idx = helper(head.next, key);
+        if (idx == -1) 
+        {
+            return -1;
+        }
+        return idx + 1;
+    }
+
+    public int recSearch(int key) 
+    {
+        return helper(head, key);
+    }
+
+    // Reverse a LinkedList - 3Variable & 4Steps - O(n)
+    public void reverse() 
+    {
+        Node prev = null;
+        Node curr = tail = head;
+        Node next;
+        while (curr != null) 
+        {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        head = prev;
+    }
+
+    // Print a LinkedList - O(n)
+    public void print() 
+    {
+        if (head == null) 
+        {
+            System.err.println("LinkedList is empty");
+            return;
+        }
+        Node temp = head;
+        while (temp != null) 
+        {
+            System.out.print(temp.data);
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    /* Check if LL is palindrom */
+    // slow - fast Approach
+    public Node findMid(Node head) 
+    {
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) 
+        {
+            slow = slow.next; // +1
+            fast = fast.next.next; // +2
+        }
+        return slow; // slow is my midNode
+    }
+
+    public boolean checkPallindrome() 
+    {
+        if (head == null || head.next == null)
+            return true;
+        // Step 1 - Find midNode
+        Node midNode = findMid(head);
+        // Step 2 - Reverse 2nd half
+        Node prev = null;
+        Node curr = midNode;
+        Node next;
+        while (curr != null) 
+        {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        Node right = prev; // rightHalf's head
+        Node left = head; // leftHalf's head
+        // Step 3 - compare
+        while (right != null) 
+        {
+            if (left.data != right.data)
+                return false;
+            left = left.next;
+            right = right.next;
+        }
+        return true;
+    }
+
+    public static void main(String args[]) 
+    {
+        LinkedList ll = new LinkedList();
+        // ll.addFirst(2);
+        // ll.addFirst(1);
+        // ll.addLast(4);
+        // ll.addLast(5);
+        // ll.addMiddle(2, 3);
+        // ll.addFirst(0);
+        // ll.addLast(6);
+        // ll.addMiddle(3, 7);
+        // ll.print();
+        // System.out.println("Size = " + ll.size);
+        // System.out.println(ll.removeFirst());
+        // ll.print();
+        // System.out.println(ll.removeLast());
+        // ll.print();
+        // System.out.println(ll.recSearch(3));
+        // ll.removeNth(4);
+        // ll.print();
+        // ll.reverse();
+        // ll.print();
+
+        /* Check if LL is palindrom */
+        ll.addLast(1);
+        ll.addLast(2);
+        ll.addLast(2);
+        ll.addLast(1);
+        ll.print();
+        System.out.println(ll.checkPallindrome());
+    }
+}
