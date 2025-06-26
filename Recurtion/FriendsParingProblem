@@ -1,0 +1,20 @@
+public class FriendsParingProblem
+{
+    public static int friendParing(int n) 
+    {
+        // Base case
+        if (n == 1 || n == 2) {
+            return n;
+        }
+        // Kaam
+        // Choice 1 - Stand single
+        int standSingle = friendParing(n - 1);
+        // Choice 2 - stand in pair
+        int standInPair = friendParing(n - 2) * (n - 1);
+        return standSingle + standInPair;
+    }
+    public static void main(String args[]) 
+    {
+        System.out.println(friendParing(3));
+    }
+}
