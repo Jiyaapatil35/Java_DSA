@@ -1,0 +1,126 @@
+public class RecursionBasics {
+    public static void decreasingOrder(int n) {
+        if (n == 1) { // Base Case
+            System.out.print(1 + " ");
+            return;
+        }
+        System.out.print(n + " ");// Kamm
+        decreasingOrder(n - 1); // Inner call
+    }
+
+    public static void increasingOrder(int n) {
+        if (n == 1) { // Base Case
+            System.out.print(n + " ");
+            return;
+        }
+        increasingOrder(n - 1); // Inner call
+        System.out.print(n + " ");// Kamm
+    }
+
+    public static int factorial(int n) {
+        if (n == 0) { // Base Case
+            return 1;
+        }
+        int fact = n * factorial(n - 1); // Kamm & Inner call
+        return fact;
+    }
+
+    public static int sumOfNumbers(int n) {
+        if (n == 0) { // Base Case
+            return n;
+        }
+        // Kamm
+        int sum;
+        return sum = n + sumOfNumbers(n - 1);
+    }
+
+    public static int fibonacci(int n) { // TC:= O(2^n) & SC:= O(n)
+        if (n == 0 || n == 1) { // Base Case
+            return n;
+        }
+        // Kamm
+        int fib;
+        return fib = fibonacci(n - 2) + fibonacci(n - 1);
+    }
+
+    public static boolean isSorted(int arr1[], int i) {
+        if (i == arr1.length - 1) {
+            return true;
+        }
+        if (arr1[i] > arr1[i + 1]) {
+            return false;
+        }
+        return isSorted(arr1, i + 1);
+    }
+
+    public static int firstOccurence(int arr2[], int i, int key) // TC:= O(n) & SC:= O(n)
+    {
+        if (i == arr2.length - 1) // Base case
+        {
+            return -1;
+        }
+        if (arr2[i] == key) {
+            return i;
+        }
+        return firstOccurence(arr2, i + 1, key);
+    }
+
+    public static int lastOccurence(int arr2[], int i, int key) {
+        if (i == arr2.length - 1) // Base case
+        {
+            return -1;
+        }
+        int isFound = lastOccurence(arr2, i + 1, key);
+        if (isFound == -1 && arr2[i] == key) {
+            return i;
+        }
+        return isFound;
+    }
+
+    public static int power(int x, int n) // TC:= O(n)
+    {
+        // if(n == 0) //Base case - option 1
+        // return 1;
+        if (n == 1) // Base case - option 2
+            return x;
+        return x * power(x, n - 1);
+    }
+
+    public static int optimizedPower(int x, int n) {
+        // if(n == 0) //Base case - option 1
+        // return 1;
+        if (n == 1) // Base case - option 2
+            return x;
+        int halfPow = optimizedPower(x, n / 2);
+        int halfPowsq = halfPow * halfPow;
+        // n is odd
+        if (n % 2 != 0)
+            return x * halfPowsq;
+        return halfPowsq;
+    }
+
+    public static void main(String args[]) {
+        int arr1[] = { 1, 2, 3, 4, 5 };
+        int arr2[] = { 8, 3, 6, 9, 5, 10, 2, 5, 3 };
+        decreasingOrder(10);
+        System.out.println();
+        increasingOrder(10);
+        System.out.println();
+        System.out.println(factorial(5));
+        System.out.println();
+        System.out.println(sumOfNumbers(5));
+        System.out.println();
+        System.out.println(fibonacci(8));
+        System.out.println();
+        System.out.println(isSorted(arr1, 0));
+        System.out.println();
+        System.out.println(firstOccurence(arr2, 0, 5));
+        System.out.println();
+        System.out.println(lastOccurence(arr2, 0, 5));
+        System.out.println();
+        System.out.println(power(2, 10));
+        System.out.println();
+        System.out.println(optimizedPower(2, 5));
+        System.out.println();
+    }
+}
