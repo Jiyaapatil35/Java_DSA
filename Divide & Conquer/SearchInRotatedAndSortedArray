@@ -1,0 +1,48 @@
+public class SearchInRotatedAndSortedArray {
+    public static void printArr(int arr[]) {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static int search(int array[], int tar, int si, int ei) {
+        // Base case
+        if (si > ei) {
+            return -1;
+        }
+        // Kamm
+        int mid = si + (ei - si) / 2;
+        // case FOUND
+        if (array[mid] == tar) {
+            return mid;
+        }
+        // Mid on L1
+        if (array[si] <= array[mid]) {
+            // case a: left
+            if (array[si] <= tar && tar <= array[mid]) {
+                return search(array, tar, si, mid - 1);
+            }
+            // case b: right
+            else {
+                return search(array, tar, mid + 1, ei);
+            }
+        }
+        // Mid on L2
+        else {
+            // case c: right
+            if (array[mid] <= tar && tar <= array[ei]) {
+                return search(array, tar, mid + 1, ei);
+            }
+            // case d: left
+            else {
+                return search(array, tar, si, mid - 1);
+            }
+        }
+    }
+
+    public static void main(String args[]) {
+        int array[] = { 4, 5, 6, 7, 0, 1, 2, 3 }; // Rotated and sorted array
+        System.err.println(search(array, 0, 0, arr.length - 1));
+    }
+}
