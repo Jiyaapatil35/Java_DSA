@@ -1,0 +1,22 @@
+public class TilingProblem 
+{
+    public static int tilingProblem(int n) 
+    {
+        // Base Case
+        if (n == 0 || n == 1) 
+        {
+          return 1;
+        }
+        // Kaam - choice making
+        // Vertical choice
+        int verticalChoice = tilingProblem(n - 1); //Inner call
+        // Horizontal choice
+        int horizontalChoice = tilingProblem(n - 2); //Inner call
+        return verticalChoice + horizontalChoice;
+    }
+    
+    public static void main(String args[]) 
+    {
+        System.out.println(tilingProblem(4));
+    }
+}
