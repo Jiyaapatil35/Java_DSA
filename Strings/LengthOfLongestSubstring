@@ -1,6 +1,6 @@
 // LeetCode Problem: 3. Longest Substring Without Repeating Characters
 // Difficulty: Medium
-// Approach: Sliding Window + HashMap
+// Approach: Sliding Window + HashMap 
 
 class LengthOfLongestSubstring {
     public int lengthOfLongestSubstring(String s) {
