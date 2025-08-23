@@ -1,4 +1,4 @@
-public class UpdateIthBit {
+public class UpdateIthBit { 
 
     public static int updateIthBit(int n, int i, int newBit) {
         // Option 1
