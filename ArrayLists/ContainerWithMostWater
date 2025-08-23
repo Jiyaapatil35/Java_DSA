@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class ContainerWithMostWater {
-    // Brute force -> O(n^2)
+    // Brute force -> Time complexity: O(n^2)
     // public static int storedWater(ArrayList<Integer> height) {
     // int maxWater = 0;
     // for (int i = 0; i < height.size(); i++) {
