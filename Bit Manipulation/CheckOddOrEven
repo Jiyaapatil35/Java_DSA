@@ -1,6 +1,6 @@
-public class OddOrEven {
+public class CheckOddOrEven {
     // Check if the number is Odd or Even
-    public static void oddOrEven(int n) {
+    public static void isOddOrEven(int n) {
         int bitMask = 1;
         if ((n & bitMask) == 0) {
             // Even case
@@ -12,7 +12,7 @@ public class OddOrEven {
     }
 
     public static void main(String args[]) {
-        oddOrEven(3);
-        oddOrEven(16);
+        isOddOrEven(3);
+        isOddOrEven(16);
     }
 }
