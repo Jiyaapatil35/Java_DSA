@@ -1,0 +1,89 @@
+public class ZigZagLinkedList {
+    public static class Node {
+        int data;
+        Node next;
+
+        public Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    public static Node head;
+    public static Node tail;
+    public static int size = 0;
+
+    // Add first - O(1)
+    public void addFirst(int data) {
+        // Step 1 - Create newNode
+        Node newNode = new Node(data);
+        size++;
+        if (head == null) {
+            head = tail = newNode;
+            return;
+        }
+        // Step 2 - newNode.next -> head
+        newNode.next = head;
+        // Step 3 - head will be newNode
+        head = newNode;
+    }
+
+    public void print() {
+        if (head == null) {
+            System.err.println("LinkedList is empty");
+            return;
+        }
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data);
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public void zigZag() {
+        // Step 1 - Find middle node
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node mid = slow;
+        // Step 2 - Reverse 2nd half
+        Node prev = null;
+        Node curr = mid.next;
+        Node next;
+        mid.next = null;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        // Step 3 - Alternate merging
+        Node leftHead = head;
+        Node rightHead = prev;
+        Node nextLeft, nextRight;
+        while (leftHead != null && rightHead != null) {
+            nextLeft = leftHead.next;
+            leftHead = rightHead;
+            nextRight = rightHead.next;
+            rightHead.next = nextLeft;
+            leftHead = nextLeft;
+            rightHead = nextRight;
+        }
+    }
+
+    public static void main(String args[]) {
+        LinkedLists2 ll = new LinkedLists2();
+        ll.addFirst(5);
+        ll.addFirst(4);
+        ll.addFirst(3);
+        ll.addFirst(2);
+        ll.addFirst(1);
+        ll.print();
+        ll.zigZag();
+        ll.print();
+    }
+}
