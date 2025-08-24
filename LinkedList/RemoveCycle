@@ -1,4 +1,4 @@
-public class RemoveCycle  
+public class RemoveCycle   
 {
     public static class Node 
     {
