@@ -1,4 +1,4 @@
-public class DetectingCycle 
+public class DetectCycle 
 {
     public static class Node 
     {
