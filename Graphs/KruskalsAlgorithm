@@ -1,3 +1,4 @@
+// Time complexity: O(ElogE) + O(V)
 import java.util.*;
 
 public class KruskalsAlgorithm {
@@ -58,7 +59,7 @@ public class KruskalsAlgorithm {
         }
     }
 
-    // Kruskal's algorithm
+    // Kruskal's algorithm 
     public static void kruskalMST(ArrayList<Edge> edges, int V) {
         init();
         Collections.sort(edges);
